@@ -46,10 +46,11 @@ let dBuffs = [];
 let records = [];
 
 let explosionTextures;
-let best = 0;
-let score = 0;
 
+let life;
+let score = 0;
 let levelNum = 0;
+
 let paused = true;
 let shoot;
 
@@ -81,7 +82,7 @@ function setup() {
     createLeabelsAndButtons();
 
     // #5 - Create ship
-    ship = new player(app.loader.resources["images/spaceship.png"].texture, 1, 100, 600, 800)
+    ship = new player(app.loader.resources["images/spaceship.png"].texture, 600, 800)
     gameScene.addChild(ship);
 
     shield = new Shield(app.loader.resources["images/shield.png"].texture, ship.x, ship.y, 3);
@@ -120,6 +121,8 @@ function startGame() {
     startScene.visible = false;
     gameOverScene.visible = false;
     gameScene.visible = true;
+
+    life = 100;
     levelNum = 1;
     score = 0;
 
@@ -160,15 +163,6 @@ function gameLoop() {
 
 
     // #3 - Move Circles
-
-    for (let c of circles) {
-        if (c.isAlive && rectsIntersect(c, ship)) {
-            hitSound.play();
-            gameScene.removeChild(c);
-            c.isAlive = false;
-            decrealseLifeBy(c.damage);
-        }
-    }
 
     for (let c of circles) {
         c.move(dt);
@@ -212,17 +206,15 @@ function gameLoop() {
     // #7 - Load next level
     if (circles.length == 0) {
         levelNum++;
-        ship.level = levelNum;
-        loadLevel();
+
         nextPage.text = `Page:  ${levelNum}`
+        loadLevel();
     }
 
 
     // #8 - Is game over?
-    if (ship.life <= 0) {
+    if (life <= 0) {
         levelNum = 0;
-        best += score;
-
         end();
         return;
     }

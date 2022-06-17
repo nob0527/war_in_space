@@ -1,13 +1,11 @@
 class player extends PIXI.Sprite {
-    constructor(texture, level, life, blur, x = 0, y = 0, ) {
+    constructor(texture, x = 0, y = 0, ) {
         super(texture)
         this.anchor.set(.5, .5);
         this.scale.set(0.1)
         this.x = x;
         this.y = y;
-        this.level = level;
-        this.blur = blur;
-        this.life = life;
+
     }
 }
 

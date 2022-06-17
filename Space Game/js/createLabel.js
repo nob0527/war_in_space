@@ -1,6 +1,6 @@
 function createLeabelsAndButtons() {
 
-    let startLabel = new PIXI.Text("War of Space", {
+    let startLabel = new PIXI.Text("War in Space", {
         fill: 0xFFFFFF,
         fontSize: 100,
         fontFamily: "Futura",
@@ -115,9 +115,9 @@ function increaseScoreBy(value) {
 }
 
 function decrealseLifeBy(value) {
-    ship.life -= value;
-    ship.life = parseInt(ship.life);
-    lifeLabel.text = `Life  ${ship.life}`;
+    life -= value;
+    life = parseInt(life);
+    lifeLabel.text = `Life  ${life}`;
 }
 
 function increaseBestScore(value) {

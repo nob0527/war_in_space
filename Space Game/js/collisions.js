@@ -81,13 +81,21 @@ function Collisions() {
         if (shield.isAlive && c.isAlive && rectsIntersect(c, shield)) {
             console.log('valami')
             shield.life -= 1;
+            c.hp -= 1;
+            if (c.hp == 0) {
+                gameScene.removeChild(c);
+                c.isAlive = false;
+
+                increaseScoreBy(c.point)
+            }
+
             if (shield.life == 0) {
                 shield.isAlive = false;
                 shield.visible = false;
             }
+
             hitSound.play();
-            gameScene.removeChild(c);
-            c.isAlive = false;
+
         }
 
         if (c.isAlive && rectsIntersect(c, ship)) {
